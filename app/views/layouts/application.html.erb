@@ -9,11 +9,21 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+    
+    <!--  Include google maps api -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=<%= ENV['GOOGLE_API'] %>"
+        type="text/javascript"></script>
+    <!--  Include targomo googlemaps full build -->
+    <script src="https://releases.targomo.com/googlemaps/latest-full.min.js" type="text/javascript"></script>
+
+    
+
   </head>
 
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
+    <div id="map" data-targomo-api-key="<%= ENV['TARGOMO_API'] %>" ></div>
 
     <%= yield %>
   </body>
