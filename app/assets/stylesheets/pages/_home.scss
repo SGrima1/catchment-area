@@ -1,4 +1,5 @@
 // Specific CSS for your home-page
+<<<<<<< HEAD
 body,
 html {
     margin: 0;
@@ -10,3 +11,26 @@ html {
     width: 100%;
     height: 100%;
 }
+=======
+html, body {
+  width: 100%; height: 100%; margin: 0;
+  font-family: Helvetica, Arial, Sans-Serif;
+}
+#map {
+  width: 100%;
+  height: calc(100% - 15px);
+}
+#attribution {
+  width: 100%; height: 15px;
+  background-color: #04343f;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+#attribution > a {
+  font-size: 9px;
+  padding-right: 5px;
+  color: #ffffffa8;
+  text-decoration: none;
+}
+>>>>>>> 33ab3f18182fe6fd1f20e8278dd6ff20373f3a93
