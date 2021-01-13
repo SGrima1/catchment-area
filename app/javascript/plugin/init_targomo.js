@@ -3,13 +3,14 @@ const initTargomo = () => {
   const mapData = document.getElementById("map")
   async function initMap() {
     
-    
+    const markerData = JSON.parse(mapData.dataset.marker)
+    console.log(markerData.lng)
 
     // create targomo client
     const client = new tgm.TargomoClient('britishisles',  mapData.dataset.targomoApiKey );
     
     // Coordinates to center the map
-    const myLatlng = new google.maps.LatLng(51.52145636448061, -0.00036176365407112845);
+    const myLatlng = new google.maps.LatLng(markerData.lat, markerData.lng);
 
     // define the map
     const map = new google.maps.Map(document.getElementById("map"), {

@@ -1,0 +1,20 @@
+<div class="row m-0">
+  <div class="left-col col-6 p-5">
+    <h4 class="text-info mt-3 pt-3">Area you want to explore</h4>
+    <div class="form-top">
+      <p class="text-secondary mt-5">Let's start with the basics</p>
+      <h5 class="text-muted"></h5>
+      <%= simple_form_for @location do |f| %>
+      <%= f.input :name, label: false, placeholder: 'Area Name' %>
+      <div class="row">
+        <div class="col-6">
+         <%= f.input :address, label: false, placeholder: 'Address' %>
+        </div>
+      </div>
+      <%= f.button :submit, type: "submit", class: "btn btn-secondary" %>
+    <% end %>
+    </div>
+
+
+  </div>
+  <%# <div class="right-col col-6 vh-100" style="background-image: url('<%= image_path("lunch.jpg") %>
