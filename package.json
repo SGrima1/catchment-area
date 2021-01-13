@@ -11,6 +11,7 @@
     "@targomo/leaflet": "0.0.9",
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
+    "places.js": "^1.19.0",
     "popper.js": "^1.16.1",
     "turbolinks": "^5.2.0"
   },

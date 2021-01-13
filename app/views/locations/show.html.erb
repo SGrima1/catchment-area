@@ -1,0 +1,6 @@
+
+<%= link_to "New Location", new_location_path %>
+<div id="map" 
+    data-marker="<%= @marker.to_json %>"
+    data-targomo-api-key="<%= ENV['TARGOMO_API'] %>" ></div>
+  

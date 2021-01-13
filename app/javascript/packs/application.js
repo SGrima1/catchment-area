@@ -28,9 +28,11 @@ import "bootstrap";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 import { initTargomo } from '../plugin/init_targomo'
+import { initAutocomplete } from '../plugin/init_autocomplete'
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
   initTargomo();
+  initAutocomplete();
 });
