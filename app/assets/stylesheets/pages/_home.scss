@@ -20,3 +20,13 @@ html, body {
   color: #ffffffa8;
   text-decoration: none;
 }
+#map {
+  width: 40%;
+  height: 100%;
+}
+#chart {
+  width: 60%;
+  height: 100%;
+  position: relative;
+  border-right: 1px solid #ddd;
+}

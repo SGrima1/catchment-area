@@ -11,6 +11,7 @@ const initTargomo = () => {
     
     // Coordinates to center the map
     const myLatlng = new google.maps.LatLng(markerData.lat, markerData.lng);
+    console.log(myLatlng)
 
     // define the map
     const map = new google.maps.Map(document.getElementById("map"), {
