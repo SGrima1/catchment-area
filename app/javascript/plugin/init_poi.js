@@ -6,7 +6,7 @@ const initPois = async () => {
   
   const lnglat = [markerData.lng,markerData.lat];
   const options = {
-    maxEdgeWeight: 300,
+    maxEdgeWeight: 900,
     travelType: "car",
     edgeWeight: "time",
     format: "geojson",
@@ -24,9 +24,13 @@ const initPois = async () => {
   // retrieve Outcodes
   // fetch data from url and return selection
   const fetchOutcodeData = async (url) => {
-  const response = await fetch(url)
-  const resultObject = await response.json()
-  return resultObject.result[0].outcode
+    try {
+      const response = await fetch(url)
+      const resultObject = await response.json()
+      return resultObject.result[0].outcode
+    } catch(err) {
+      alert(err)
+    }
   }
   
   // loop through postcodes.io urls and push them into array
