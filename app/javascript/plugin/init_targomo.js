@@ -1,6 +1,6 @@
 const initTargomo = () => {
   
-  const mapData = document.getElementById("map")
+  const mapData = document.getElementById("map_google")
   async function initMap() {
     
     const markerData = JSON.parse(mapData.dataset.marker)
@@ -14,14 +14,12 @@ const initTargomo = () => {
     console.log(myLatlng)
 
     // define the map
-    const map = new google.maps.Map(document.getElementById("map"), {
+    const map = new google.maps.Map(document.getElementById("map_google"), {
         zoom: 12, disableDefaultUI: true, zoomControl: true,
         center: myLatlng,
       });
 
-      
-
-    var mapType = new google.maps.StyledMapType([{
+      var mapType = new google.maps.StyledMapType([{
         featureType: "all", elementType: "all",
         clickableIcons: false, draggableCursor:'',stylers: [ { saturation: -100 } ]}
     ], { name:"Grayscale" });    
@@ -39,7 +37,7 @@ const initTargomo = () => {
 
     // you need to define some options for the polygon service
     const options = {
-        travelType: 'car',
+        travelType: 'bike',
         travelEdgeWeights: travelTimes,
         maxEdgeWeight: 1800,
         edgeWeight: 'time',
@@ -48,6 +46,7 @@ const initTargomo = () => {
 
     // define the starting point
     const sources = [{ id: 0, lat: myLatlng.lat(), lng: myLatlng.lng() }];
+    
 
     // define the polygon overlay
     const layer = new tgm.googlemaps.TgmGoogleMapsPolygonOverlay(map, {
@@ -56,15 +55,16 @@ const initTargomo = () => {
 
     // get the polygons
     const polygons = await client.polygons.fetch(sources, options);
+    console.log(polygons)
     // calculate bounding box for polygons
     const bounds = polygons.getMaxBounds();
     // add polygons to overlay
     layer.setData(polygons);
     // zoom to the polygon bounds
     map.fitBounds(new google.maps.LatLngBounds(bounds.southWest, bounds.northEast), 0);
-  }
+}
 
-  google.maps.event.addDomListener(window, 'load', initMap)
+google.maps.event.addDomListener(window, 'load', initMap);
 };
 
 export { initTargomo };
