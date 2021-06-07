@@ -26,28 +26,53 @@ const initPois = async () => {
 
   
   // retrieve all asociated postcodes
-  async function getFromAPI() {
-    let outcodes = []
-    pois.features.forEach((poi) => { 
-      let url = `https://api.postcodes.io/outcodes?lon=${poi.geometry.coordinates[0]}&lat=${poi.geometry.coordinates[1]}&limit=1`
-      fetch(url)
-        .then(response => response.json())
-        .then((data) => {    
-          outcodes.push(data.result[0].outcode);
+//   async function getFromAPI() {
+//     let outcodes = []
+//     pois.features.forEach((poi) => { 
+//       let url = `https://api.postcodes.io/outcodes?lon=${poi.geometry.coordinates[0]}&lat=${poi.geometry.coordinates[1]}&limit=1`
+//       fetch(url)
+//         .then(response => response.json())
+//         .then((data) => {    
+//           outcodes.push(data.result[0].outcode);
           
-      });
+//       });
 
-    });
-    return outcodes;
-  }
+//     });
+//     return outcodes;
+//   }
   
-  async function removeOutcodeDuplicate() {
-    const outcodesDup = await getFromAPI();
-    return outcodesDup
-  }
+//   async function removeOutcodeDuplicate() {
+//     const outcodesDup = await getFromAPI();
+//     return outcodesDup
+//   }
 
-  const outcodesGlobal = await removeOutcodeDuplicate();
-  console.log(outcodesGlobal)
-};
+//   const outcodesGlobal = await removeOutcodeDuplicate();
+//   console.log(outcodesGlobal)
+// };
+
+const asynchronousFunction = async (url) => {
+  const response = await fetch(url)
+  const resultObject = await response.json()
+  return resultObject.result[0].outcode
+}
+const outcodes = []
+const mainFunction = async () => {
+for (const poi of pois.features ){
+  let url = `https://api.postcodes.io/outcodes?lon=${poi.geometry.coordinates[0]}&lat=${poi.geometry.coordinates[1]}&limit=1`
+  
+    const result = await asynchronousFunction(url)
+    outcodes.push(result)
+  }
+  return outcodes
+}
+const returnArray = async () => {
+  console.log(await mainFunction())
+}
+
+
+returnArray()
+  
+
+}
  
 export { initPois }; 
