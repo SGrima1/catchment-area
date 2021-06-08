@@ -1,4 +1,4 @@
-const initPois = async () => {
+const initPropData = async () => {
   const mapData = document.getElementById("map")
   const markerData = JSON.parse(mapData.dataset.marker) 
   const client = new tgm.TargomoClient("britishisles", mapData.dataset.targomoApiKey);
@@ -24,8 +24,7 @@ const initPois = async () => {
   const fetchOutcodeData = async (url) => {
       const response = await fetch(url)
       const resultObject = await response.json()
-      return {outcode: resultObject.result[0].outcode,
-              district: resultObject.result[0].admin_district}
+      return resultObject.result[0].outcode
   }
   
   // loop through postcodes.io urls and push them into array
@@ -56,9 +55,13 @@ const initPois = async () => {
     const response = await fetch(url)
     try {
     const resultObject = await response.json()
-    return {district: outcode.district,
-            outcode: outcode.outcode,
-            data: [resultObject.data[3],resultObject.data[4] ,resultObject.data[5]]} 
+    return {outcode: outcode,
+            value_2019: resultObject.data[3][1],
+            value_2020: resultObject.data[4][1],
+            value_2021: resultObject.data[5][1],
+            increase_2019: resultObject.data[3][2],
+            increase_2020: resultObject.data[4][2],
+            increase_2021: resultObject.data[5][2]} 
     } catch(err) {
       alert(`${outcode.outcode}/${outcode.district}: ${err}`)
     }
@@ -68,7 +71,7 @@ const initPois = async () => {
     const propertyData = []
     const loopPropertyData = async () => {
     for (const outcode of outcodesGlobal ){
-      let url = `https://api.propertydata.co.uk/growth?key=TFRGZDENV6&postcode=${outcode.outcode}`
+      let url = `https://api.propertydata.co.uk/growth?key=TFRGZDENV6&postcode=${outcode}`
         const result = await fetchPropertyData(url, outcode)
         propertyData.push(result)
       }
@@ -77,11 +80,44 @@ const initPois = async () => {
     // return array and manipulate it - return manipulation
     const returnPropertyData = async () => {
       const data = await loopPropertyData();
-      let filtered = data.filter(Boolean) 
+      const filtered = data.filter(Boolean) 
       return filtered
     }
     const propertyDataGlobal = await returnPropertyData()
     console.log(propertyDataGlobal)
+
+  // Extract Values into DOM tables
+
+  // EXTRACT VALUE FOR HTML HEADER 
+  const header = Object.keys(propertyDataGlobal[0]);  
+
+  // CREATE DYNAMIC TABLE.
+  const table = document.createElement("table");
+
+  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+  let tr = table.insertRow(-1);                   // TABLE ROW.
+  for (let i = 0; i < header.length; i++) {
+      const th = document.createElement("th");      // TABLE HEADER.
+      th.innerHTML = header[i];
+      tr.appendChild(th);
+  }
+
+  // ADD JSON DATA TO THE TABLE AS ROWS.
+  for (let i = 0; i < propertyDataGlobal.length; i++) {
+
+      tr = table.insertRow(-1);
+
+      for (let j = 0; j < header.length; j++) {
+          let tabCell = tr.insertCell(-1);
+          tabCell.innerHTML = propertyDataGlobal[i][header[j]];
+      }
+  }
+
+  // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+  const divContainer = document.getElementById("sold_values");
+  divContainer.innerHTML = "";
+  divContainer.appendChild(table);
+
 }
  
-export { initPois }; 
+export { initPropData }; 
