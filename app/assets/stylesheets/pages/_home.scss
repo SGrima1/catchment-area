@@ -3,15 +3,17 @@ html, body {
   width: 100%; height: 100%; margin: 0;
   font-family: Helvetica, Arial, Sans-Serif;
 }
-#map {
-  width: 100%;
+
+#map_google {
+  width: 40%;
   height: calc(100% - 15px);
 }
 
-#map_google {
-  width: 100%;
+#map_leaflet {
+  width: 40%;
   height: calc(100% - 15px);
 }
+
 #attribution {
   width: 100%; height: 15px;
   background-color: #04343f;
@@ -26,8 +28,8 @@ html, body {
   text-decoration: none;
 }
 #map {
-  width: 40%;
-  height: 100%;
+  width: 0%;
+  height: 0%;
 }
 #chart {
   width: 60%;

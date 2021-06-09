@@ -31,12 +31,14 @@ import { initTargomo } from '../plugin/init_targomo'
 import { initAutocomplete } from '../plugin/init_autocomplete'
 import { initStats } from '../plugin/init_stats'
 import { initPropData } from '../plugin/init_prop_data'
+import { initIsoMap } from '../plugin/init_iso_map'
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
-  initPropData();
+  // initPropData();
   initTargomo();
   initAutocomplete();
   initStats();
+  initIsoMap();
 });

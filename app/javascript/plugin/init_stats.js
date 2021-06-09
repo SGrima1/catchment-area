@@ -56,6 +56,7 @@ const initStats = () => {
         // show progress bar
         pBar.show();
         const sources = [{ ...marker.getLngLat(), id: 1 }];
+        console.log(sources)
         const statisticsResults = await client.statistics.dependent(sources, {
             maxEdgeWeight: Math.max(...stats.weights), travelType: "car", // 30 minutes on foot
             statisticsGroup: stats.group,
