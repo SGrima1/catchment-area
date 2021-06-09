@@ -9,8 +9,8 @@ html, body {
   height: calc(100% - 15px);
 }
 
-#map_leaflet {
-  width: 40%;
+#map {
+  width: 80%;
   height: calc(100% - 15px);
 }
 
@@ -27,7 +27,7 @@ html, body {
   color: #ffffffa8;
   text-decoration: none;
 }
-#map {
+#map_hide {
   width: 0%;
   height: 0%;
 }

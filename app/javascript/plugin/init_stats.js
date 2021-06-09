@@ -1,6 +1,6 @@
 const initStats = () => {
   window.onload = function () {
-    const mapData = document.getElementById("map")
+    const mapData = document.getElementById("map_hide")
     const markerData = JSON.parse(mapData.dataset.marker)
     const chartContainer = document.getElementById('chart');
     chartContainer.style.height = chartContainer.clientHeight + 'px';

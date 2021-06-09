@@ -5,16 +5,15 @@ const initIsoMap = async() => {
     const client = new tgm.TargomoClient('britishisles',  mapData.dataset.targomoApiKey);
     
     // GET OUTCODES THROUGH RANDOM POIs COORDINATES WITHIN CATCHMENT AREA
- 
     const lnglat = [markerData.lng,markerData.lat];
     const optionsPOI = {
-      maxEdgeWeight: 300,
+      maxEdgeWeight: 900,
       travelType: "car",
       edgeWeight: "time",
       format: "geojson",
       osmTypes: [{
-      key: "railway",
-      value: "station"
+      key: "group",
+      value: "cafe"
       }]
     };
   
@@ -23,6 +22,7 @@ const initIsoMap = async() => {
     { id: 0, lat: lnglat[1], lng: lnglat[0] }, optionsPOI
     );
     
+    console.log(pois)
     // retrieve Outcodes
     // fetch data from url and return selection
     const fetchOutcodeData = async (url) => {
@@ -47,18 +47,16 @@ const initIsoMap = async() => {
       const uniq = [...new Set(outcodesDup)];
       return uniq
     }
-  
     const outcodesGlobal = await returnOutcode()
     console.log(outcodesGlobal)
 
     // Fetch OUTCODE POLYGONS
-
     const fetchPolygonData = async (url, outcode) => {
         const response = await fetch(url)
         const resultObject = await response.json()
         return resultObject.features.find(x => x.properties.name == outcode )
     }
-    // loop through postcodes.io urls and push them into array
+    // loop through polygons.geojson and push them into array
     const polygons = []
     const loopPolygonData = async () => {
     for (const outcode of outcodesGlobal ){
@@ -73,24 +71,16 @@ const initIsoMap = async() => {
       const polygonsDup = await loopPolygonData();
       const filtered = polygonsDup.filter(Boolean) 
       return filtered
-    }
-  
+    }  
     const polygonsGlobal = await returnPolygon()
-    
-
 
     // Create a Leaflet map with basemap, set the center of the map to the city center of Berlin.
-    const tilesUrl = 'https://api.maptiler.com/maps/positron/{z}/{x}/{y}@2x.png?key=IW4YyZ0SNyKtwkmSWnlc'
-    const tileLayer = L.tileLayer(tilesUrl, {
-        tileSize: 512, zoomOffset: -1,
-        minZoom: 1, crossOrigin: true
-    });
-    var map = L.map('map_leaflet', {
-        layers: [tileLayer],
-        scrollWheelZoom: false
-    }).setView([markerData.lat, markerData.lng], 14);
-    const attributionText = `<a href="https://www.targomo.com/developers/resources/attribution/" target="_blank">&copy; Targomo</a>`;
-    map.attributionControl.addAttribution(attributionText);
+
+    var map = L.map('map').setView([markerData.lat, markerData.lng], 12);
+    var gl = L.mapboxGL({
+        attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e, Contains OS data \u00a9 Crown copyright and database right 2019",
+        style: 'https://api.maptiler.com/maps/25b2c60e-dd4b-48c6-aa6a-feccb96014ca/style.json?key=IW4YyZ0SNyKtwkmSWnlc'
+      }).addTo(map);
 
     // Define a source location which is passed into the Targomo polygon service.
     const sources = [{ id: 1, lat: markerData.lat, lng: markerData.lng }];
@@ -105,23 +95,35 @@ const initIsoMap = async() => {
         travelType: 'car',
         travelEdgeWeights: [900],
         srid: 4326,
-        buffer: 0.0005,
+        buffer: 0.004,
         serializer: 'geojson'
     };
 
     // Request polygons once immediately on page load and immediately add it to the map using the default geojson map layer.
     // Check out https://leafletjs.com/examples/geojson/ for more information on how to style the geojson in Leaflet.
-    client.polygons.fetch(sources, options).then((result) => {
-        L.geoJson(result, {
-        }).addTo(map);
-    });
-
-    polygonsGlobal.forEach(polygon => {
-        L.geoJson(polygon).addTo(map)
-    })
-
-    
+    const catchmentStyle = { 
+        "color": "#88d4ab", 
+        fillColor: "#88d4ab", 
+        "fillOpacity": .5
+    }
   
+    const polygonStyle = { fillColor: '#ffffff', "fillOpacity": .01 }
+    polygonsGlobal.forEach(polygon => {
+        L.geoJson(polygon, {
+            style: polygonStyle
+        }).bindTooltip(polygon.properties.name, {
+          permanent: true, 
+          direction: 'center',
+          interactive: true // If true, the tooltip will follow the mouse instead of being fixed at the feature center.
+        })
+        .on('click', function(event) {console.log(polygon.properties.name)}).addTo(map)
+    })  
+
+    client.polygons.fetch(sources, options).then((result) => {
+      L.geoJson(result, {
+          style: catchmentStyle
+      }).addTo(map);
+  });
 }
 
 export { initIsoMap };

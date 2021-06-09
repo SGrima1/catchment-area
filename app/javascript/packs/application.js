@@ -27,7 +27,7 @@ import "bootstrap";
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
-import { initTargomo } from '../plugin/init_targomo'
+// import { initTargomo } from '../plugin/init_targomo'
 import { initAutocomplete } from '../plugin/init_autocomplete'
 import { initStats } from '../plugin/init_stats'
 import { initPropData } from '../plugin/init_prop_data'
@@ -37,8 +37,8 @@ document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
   // initPropData();
-  initTargomo();
-  initAutocomplete();
+  // initTargomo();
+  // initAutocomplete();
   initStats();
   initIsoMap();
 });
