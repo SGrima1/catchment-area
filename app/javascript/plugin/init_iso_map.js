@@ -7,7 +7,7 @@ const initIsoMap = async() => {
     // GET OUTCODES THROUGH RANDOM POIs COORDINATES WITHIN CATCHMENT AREA
     const lnglat = [markerData.lng,markerData.lat];
     const optionsPOI = {
-      maxEdgeWeight: 900,
+      maxEdgeWeight: 30,
       travelType: "car",
       edgeWeight: "time",
       format: "geojson",
@@ -50,6 +50,77 @@ const initIsoMap = async() => {
     const outcodesGlobal = await returnOutcode()
     console.log(outcodesGlobal)
 
+    // PropertyDATA API
+  
+  // retrieve Outcodes
+  // fetch data from url and return selection
+  const fetchPropertyData = async (url, outcode) => {
+    const response = await fetch(url)
+    try {
+    const resultObject = await response.json()
+    return {outcode: outcode,
+            value_2019: resultObject.data[3][1],
+            value_2020: resultObject.data[4][1],
+            value_2021: resultObject.data[5][1],
+            increase_2019: resultObject.data[3][2],
+            increase_2020: resultObject.data[4][2],
+            increase_2021: resultObject.data[5][2]} 
+    } catch(err) {
+      alert(`${outcode.outcode}/${outcode.district}: ${err}`)
+    }
+  }
+    
+    // loop through postcodes.io urls and push them into array
+    const propertyData = []
+    const loopPropertyData = async () => {
+    for (const outcode of outcodesGlobal ){
+      let url = `https://api.propertydata.co.uk/growth?key=TFRGZDENV6&postcode=${outcode}`
+        const result = await fetchPropertyData(url, outcode)
+        propertyData.push(result)
+      }
+      return propertyData
+    }
+    // return array and manipulate it - return manipulation
+    const returnPropertyData = async () => {
+      const data = await loopPropertyData();
+      const filtered = data.filter(Boolean) 
+      return filtered
+    }
+    const propertyDataGlobal = await returnPropertyData();
+    console.log(propertyDataGlobal);
+    
+      // Extract Values into DOM tables
+
+  ``  // EXTRACT VALUE FOR HTML HEADER 
+    const header = Object.keys(propertyDataGlobal[0]);  
+
+    // CREATE DYNAMIC TABLE.
+    const table = document.createElement("table");
+
+    // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+    let tr = table.insertRow(-1);                   // TABLE ROW.
+    for (let i = 0; i < header.length; i++) {
+        const th = document.createElement("th");      // TABLE HEADER.
+        th.innerHTML = header[i];
+        tr.appendChild(th);
+    }
+
+    // ADD JSON DATA TO THE TABLE AS ROWS.
+    for (let i = 0; i < propertyDataGlobal.length; i++) {
+
+        tr = table.insertRow(-1);
+
+        for (let j = 0; j < header.length; j++) {
+            let tabCell = tr.insertCell(-1);
+            tabCell.innerHTML = propertyDataGlobal[i][header[j]];
+        }
+    }
+
+    // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+    const divContainer = document.getElementById("sold_values");
+    divContainer.innerHTML = "";
+    divContainer.appendChild(table);
+    
     // Fetch OUTCODE POLYGONS
     const fetchPolygonData = async (url, outcode) => {
         const response = await fetch(url)
@@ -109,14 +180,16 @@ const initIsoMap = async() => {
   
     const polygonStyle = { fillColor: '#ffffff', "fillOpacity": .01 }
     polygonsGlobal.forEach(polygon => {
-        L.geoJson(polygon, {
-            style: polygonStyle
-        }).bindTooltip(polygon.properties.name, {
-          permanent: true, 
-          direction: 'center',
-          interactive: true // If true, the tooltip will follow the mouse instead of being fixed at the feature center.
-        })
-        .on('click', function(event) {console.log(polygon.properties.name)}).addTo(map)
+      let value_2021 = propertyDataGlobal.find(x => x.outcode == polygon.properties.name).value_2021
+      let increase_2021 = propertyDataGlobal.find(x => x.outcode == polygon.properties.name).increase_2021
+      L.geoJson(polygon, {
+          style: polygonStyle
+      }).bindTooltip(polygon.properties.name, {
+        permanent: true, 
+        direction: 'center',
+        interactive: true // If true, the tooltip will follow the mouse instead of being fixed at the feature center.
+      })
+      .on('click', function(event) {console.log(`${polygon.properties.name}: ${value_2021} /  ${increase_2021}  `)}).addTo(map)
     })  
 
     client.polygons.fetch(sources, options).then((result) => {
