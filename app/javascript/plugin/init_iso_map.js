@@ -7,7 +7,7 @@ const initIsoMap = async() => {
     // GET OUTCODES THROUGH RANDOM POIs COORDINATES WITHIN CATCHMENT AREA
     const lnglat = [markerData.lng,markerData.lat];
     const optionsPOI = {
-      maxEdgeWeight: 900,
+      maxEdgeWeight: 30,
       travelType: "car",
       edgeWeight: "time",
       format: "geojson",
