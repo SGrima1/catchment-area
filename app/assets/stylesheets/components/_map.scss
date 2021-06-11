@@ -1,0 +1,48 @@
+#map_google {
+  width: 40%;
+  height: calc(100% - 15px);
+}
+
+#map {
+  width: 100%;
+  height: calc(100% - 15px);
+  position: relative;
+}
+
+#map_box {
+  position: absolute;
+  bottom: 80px;
+  left: 10px;
+  width: 220px;
+  background: #ffffff;
+  z-index: 1000;
+  padding: 8px 24px;
+}
+
+.hide{
+  display: none;
+}
+
+#attribution {
+  width: 100%; height: 15px;
+  background-color: #04343f;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+#attribution > a {
+  font-size: 9px;
+  padding-right: 5px;
+  color: #ffffffa8;
+  text-decoration: none;
+}
+#map_hide {
+  width: 0%;
+  height: 0%;
+}
+#chart {
+  width: 60%;
+  height: 100%;
+  position: relative;
+  border-right: 1px solid #ddd;
+}

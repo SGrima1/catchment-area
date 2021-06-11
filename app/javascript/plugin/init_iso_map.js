@@ -3,11 +3,11 @@ const initIsoMap = async() => {
     const mapData = document.getElementById("map")
     const markerData = JSON.parse(mapData.dataset.marker)
     const client = new tgm.TargomoClient('britishisles',  mapData.dataset.targomoApiKey);
-    
+   
     // GET OUTCODES THROUGH RANDOM POIs COORDINATES WITHIN CATCHMENT AREA
     const lnglat = [markerData.lng,markerData.lat];
     const optionsPOI = {
-      maxEdgeWeight: 30,
+      maxEdgeWeight: 900,
       travelType: "car",
       edgeWeight: "time",
       format: "geojson",
@@ -58,13 +58,11 @@ const initIsoMap = async() => {
     const response = await fetch(url)
     try {
     const resultObject = await response.json()
-    return {outcode: outcode,
-            value_2019: resultObject.data[3][1],
-            value_2020: resultObject.data[4][1],
-            value_2021: resultObject.data[5][1],
-            increase_2019: resultObject.data[3][2],
-            increase_2020: resultObject.data[4][2],
-            increase_2021: resultObject.data[5][2]} 
+    return {Outcode: outcode,
+            Value_2021: resultObject.data[5][1].toLocaleString(),
+            Increase_2019: resultObject.data[3][2],
+            Increase_2020: resultObject.data[4][2],
+            Increase_2021: resultObject.data[5][2]} 
     } catch(err) {
       alert(`${outcode.outcode}/${outcode.district}: ${err}`)
     }
@@ -95,31 +93,38 @@ const initIsoMap = async() => {
     const header = Object.keys(propertyDataGlobal[0]);  
 
     // CREATE DYNAMIC TABLE.
-    const table = document.createElement("table");
+    const table = document.getElementById("value_table");
 
     // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-    let tr = table.insertRow(-1);                   // TABLE ROW.
-    for (let i = 0; i < header.length; i++) {
-        const th = document.createElement("th");      // TABLE HEADER.
-        th.innerHTML = header[i];
-        tr.appendChild(th);
-    }
+    // let tr = table.insertRow(-1);                   // TABLE ROW.
+    // for (let i = 0; i < header.length; i++) {
+    //     const th = document.createElement("th");      // TABLE HEADER.
+    //     th.innerHTML = header[i].replace('_', ' ');
+    //     if ( i == 0) { th.classList.add('outcode');}
+    //     tr.appendChild(th);
+    // }
 
     // ADD JSON DATA TO THE TABLE AS ROWS.
     for (let i = 0; i < propertyDataGlobal.length; i++) {
 
-        tr = table.insertRow(-1);
+        let tr = table.insertRow(-1);
 
         for (let j = 0; j < header.length; j++) {
             let tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = propertyDataGlobal[i][header[j]];
+            if (j == 1){
+              tabCell.innerHTML = propertyDataGlobal[i][header[j]]
+              tabCell.classList.add('value');  
+            } else {
+              tabCell.innerHTML = propertyDataGlobal[i][header[j]] 
+            };
+            if ( j == 0) { tabCell.classList.add('outcode');}
         }
     }
 
     // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-    const divContainer = document.getElementById("sold_values");
-    divContainer.innerHTML = "";
-    divContainer.appendChild(table);
+    // const divContainer = document.getElementById("sold_values");
+    // divContainer.innerHTML = "";
+    // divContainer.appendChild(table);
     
     // Fetch OUTCODE POLYGONS
     const fetchPolygonData = async (url, outcode) => {
@@ -180,8 +185,16 @@ const initIsoMap = async() => {
   
     const polygonStyle = { fillColor: '#ffffff', "fillOpacity": .01 }
     polygonsGlobal.forEach(polygon => {
-      let value_2021 = propertyDataGlobal.find(x => x.outcode == polygon.properties.name).value_2021
-      let increase_2021 = propertyDataGlobal.find(x => x.outcode == polygon.properties.name).increase_2021
+      let value_2021 = propertyDataGlobal.find(x => x.Outcode == polygon.properties.name).Value_2021
+      let increase_2021 = propertyDataGlobal.find(x => x.Outcode == polygon.properties.name).Increase_2021
+      const element = document.querySelector('#map_box')
+      const htmlValue = `
+      <h3>${polygon.properties.name} </h3>
+      <div class="Metrics"> 
+        Average House Value 2021: ${value_2021}
+        <br> Residential Value Increase 2021: ${increase_2021}
+      </div>
+      `
       L.geoJson(polygon, {
           style: polygonStyle
       }).bindTooltip(polygon.properties.name, {
@@ -189,7 +202,11 @@ const initIsoMap = async() => {
         direction: 'center',
         interactive: true // If true, the tooltip will follow the mouse instead of being fixed at the feature center.
       })
-      .on('click', function(event) {console.log(`${polygon.properties.name}: ${value_2021} /  ${increase_2021}  `)}).addTo(map)
+      .on('click', function(event) {
+        // element.innerHTML = ""
+        element.innerHTML = htmlValue
+        element.classList.toggle("hide")
+      }).addTo(map)
     })  
 
     client.polygons.fetch(sources, options).then((result) => {

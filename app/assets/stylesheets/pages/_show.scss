@@ -1,0 +1,10 @@
+.show_grid{
+  display: grid;
+  width: 100%;
+  height: 90%;
+  grid-template-columns: 60% 40%;
+  justify-items: center;
+  align-items: start;
+  grid-gap: 20px;
+  margin-top: 16px;
+}

@@ -4,36 +4,3 @@ html, body {
   font-family: Helvetica, Arial, Sans-Serif;
 }
 
-#map_google {
-  width: 40%;
-  height: calc(100% - 15px);
-}
-
-#map {
-  width: 80%;
-  height: calc(100% - 15px);
-}
-
-#attribution {
-  width: 100%; height: 15px;
-  background-color: #04343f;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-#attribution > a {
-  font-size: 9px;
-  padding-right: 5px;
-  color: #ffffffa8;
-  text-decoration: none;
-}
-#map_hide {
-  width: 0%;
-  height: 0%;
-}
-#chart {
-  width: 60%;
-  height: 100%;
-  position: relative;
-  border-right: 1px solid #ddd;
-}

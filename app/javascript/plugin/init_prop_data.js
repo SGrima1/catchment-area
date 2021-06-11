@@ -92,10 +92,10 @@ const initPropData = async () => {
   const header = Object.keys(propertyDataGlobal[0]);  
 
   // CREATE DYNAMIC TABLE.
-  const table = document.createElement("table");
+  const table = document.getElementById("value_table");
 
   // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-  let tr = table.insertRow(-1);                   // TABLE ROW.
+  let tr = table.insertRow(+1);                   // TABLE ROW.
   for (let i = 0; i < header.length; i++) {
       const th = document.createElement("th");      // TABLE HEADER.
       th.innerHTML = header[i];
@@ -105,18 +105,17 @@ const initPropData = async () => {
   // ADD JSON DATA TO THE TABLE AS ROWS.
   for (let i = 0; i < propertyDataGlobal.length; i++) {
 
-      tr = table.insertRow(-1);
+      tr = table.insertRow(+1);
 
       for (let j = 0; j < header.length; j++) {
-          let tabCell = tr.insertCell(-1);
+          let tabCell = tr.insertCell(+1);
           tabCell.innerHTML = propertyDataGlobal[i][header[j]];
       }
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-  const divContainer = document.getElementById("sold_values");
-  divContainer.innerHTML = "";
-  divContainer.appendChild(table);
+  // const divContainer = document.getElementById("value_table");
+  // divContainer.appendChild(table);
 
 }
  

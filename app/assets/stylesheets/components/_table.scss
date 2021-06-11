@@ -1,0 +1,39 @@
+#sold_value{
+  width: 100%;
+  margin: auto;
+}
+
+tr{
+  height:50px;
+  border-bottom:rgba(0,0,0,.05) 1px solid;
+}
+
+th{
+  height:30px;
+  font-size:11pt;
+  border:0px solid;
+}
+
+#increase{
+  text-align: center;
+  border-bottom: 3px solid;
+}
+
+.sub_header{
+  border-bottom: 1px solid
+}
+
+#value_table{
+  text-align: center;
+}
+
+td{    
+  box-sizing:border-box;
+  font-size:11pt;
+  min-width: 100px;
+}
+.outcode{
+  width: 120px;
+  text-align: left;
+  padding-left: 10px;
+}
