@@ -23,19 +23,20 @@ const initIsoMap = async() => {
     );
     
     console.log(pois)
+    
     // retrieve Outcodes
     // fetch data from url and return selection
     const fetchOutcodeData = async (url) => {
         const response = await fetch(url)
         const resultObject = await response.json()
-        return resultObject.result[0].outcode
+        return {outcode: resultObject.result[0].outcode, msoa: resultObject.result[0].codes.msoa}
     }
     
     // loop through postcodes.io urls and push them into array
     const outcodes = []
     const loopPoiData = async () => {
     for (const poi of pois.features ){
-      let url = `https://api.postcodes.io/outcodes?lon=${poi.geometry.coordinates[0]}&lat=${poi.geometry.coordinates[1]}&limit=1`
+      let url = `https://api.postcodes.io/postcodes?lon=${poi.geometry.coordinates[0]}&lat=${poi.geometry.coordinates[1]}&limit=1`
         const result = await fetchOutcodeData(url)
         outcodes.push(result)
       }
@@ -44,12 +45,33 @@ const initIsoMap = async() => {
     // return array and manipulate it - return manipulation
     const returnOutcode = async () => {
       const outcodesDup = await loopPoiData();
-      const uniq = [...new Set(outcodesDup)];
+      let outcodesLocal =[]
+      for(let outcode in outcodesDup) {
+        outcodesLocal.push(outcodesDup[outcode].outcode)
+      }
+      const uniq = [...new Set(outcodesLocal)];
       return uniq
     }
-    const outcodesGlobal = await returnOutcode()
-    console.log(outcodesGlobal)
 
+    const returnMsoa = async () => {
+      const outcodesDup = await loopPoiData();
+      let msoaLocal =[]
+      for(let msoa in outcodesDup) {
+        msoaLocal.push(outcodesDup[msoa].msoa)
+      }
+      const uniq = [...new Set(msoaLocal)];
+      return uniq
+    }
+
+    const outcodesGlobal = await returnOutcode()
+    const msoaGlobal = await returnMsoa()
+    console.log(msoaGlobal)
+
+
+
+    
+    
+    
     // PropertyDATA API
   
   // retrieve Outcodes
@@ -150,6 +172,72 @@ const initIsoMap = async() => {
     }  
     const polygonsGlobal = await returnPolygon()
 
+    // Fetch MSOA Data
+    const fetchMsoaData = async (url, msoa) => {
+      const response = await fetch(url)
+      const resultObject = await response.json()
+      console.log(resultObject)
+      return resultObject.find(x => x.msoa == msoa )
+  }
+  // loop through polygons.geojson and push them into array
+  const msoas = []
+  const loopMsoaData = async () => {
+  for (const msoa of msoaGlobal ){
+    let url = `/msoa_income.json`
+      const result = await fetchMsoaData(url, msoa)
+      msoas.push(result)
+   }
+    return msoas
+  }
+  // return array and manipulate it - return manipulation
+  const returnMsoaData = async () => {
+    const msoasDup = await loopMsoaData();
+    const filtered = msoasDup.filter(Boolean) 
+    return filtered
+  } 
+
+  // Calculate Average salaries and total populations
+  
+  
+  const netIncome = []
+  const netIncomeAfterHousing = []
+  const totalPopulation = []
+  const totalPopulationSixteenSixtyFive = []
+  const totalPopulationSixteenThirtyNine = []
+  const demographicResults = []
+  
+  const sumArrayValues = (values) => {
+    return values.reduce((p, c) => p + c, 0)
+  };
+  
+  const weightedMean = (factorsArray, weightsArray) => {  
+    return sumArrayValues(factorsArray.map((factor, index) => factor * weightsArray[index])) / sumArrayValues(weightsArray)
+  };
+
+  const returnDemographicData = async () => {
+    const msoaLocal = await returnMsoaData();
+    
+    for (let msoa of msoaLocal) {
+      netIncome.push(parseInt(msoa.netAnnualIncome.replace(/,/g, '')))
+      netIncomeAfterHousing.push(parseInt(msoa.netAnnualIncomeafterHousing.replace(/,/g, '')))
+      totalPopulation.push(parseInt(msoa.populationTotal.replace(/,/g, '')))
+      totalPopulationSixteenSixtyFive.push(parseInt(msoa.population1665.replace(/,/g, '')))
+      totalPopulationSixteenThirtyNine.push(parseInt(msoa.population1639.replace(/,/g, '')))
+    }
+    return {
+      averageIncome: weightedMean(netIncome, totalPopulationSixteenSixtyFive),
+      averageIncomeAfterHousing: weightedMean(netIncomeAfterHousing, totalPopulationSixteenSixtyFive),
+      totalPopulation: sumArrayValues(totalPopulation),
+      totalPopulationSixteenThirtyNine: sumArrayValues(totalPopulationSixteenThirtyNine)
+    }
+  }
+
+  const finalData = await returnDemographicData()
+  console.log(finalData)
+
+
+  
+
     // Create a Leaflet map with basemap, set the center of the map to the city center of Berlin.
 
     var map = L.map('map').setView([markerData.lat, markerData.lng], 12);
@@ -203,7 +291,6 @@ const initIsoMap = async() => {
         interactive: true // If true, the tooltip will follow the mouse instead of being fixed at the feature center.
       })
       .on('click', function(event) {
-        // element.innerHTML = ""
         element.innerHTML = htmlValue
         element.classList.toggle("hide")
       }).addTo(map)
