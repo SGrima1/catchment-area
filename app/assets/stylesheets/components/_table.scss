@@ -1,6 +1,10 @@
-#sold_value{
-  width: 100%;
+#sold_values{
+  width: 80%;
+  height: 100%;
   margin: auto;
+  grid-area: table;
+  align-self: start;
+  justify-self: center;
 }
 
 tr{
@@ -24,7 +28,7 @@ th{
 }
 
 #value_table{
-  text-align: center;
+  width:100%;
 }
 
 td{    

@@ -254,6 +254,14 @@ const initIsoMap = async() => {
   const finalData = await returnDemographicData()
   console.log(finalData)
 
+  const demElement = document.querySelector(".demographics")
+  const demHtml = `
+  <div> <h4> Average Net Income </h4> ${finalData.averageIncome} </div>
+  <div> <h4> Average Disposable Income</h4> ${finalData.averageIncomeAfterHousing} </div>
+  <div> <h4> Total Population</h4> ${finalData.totalPopulation} </div>
+  <div> <h4> Population Aged [16-39]</h4> ${finalData.totalPopulationSixteenThirtyNine}  </div>
+  `
+  demElement.insertAdjacentHTML('afterbegin', demHtml)
     // Create a Leaflet map with basemap, set the center of the map to the city center of Berlin.
 
     var map = L.map('map').setView([markerData.lat, markerData.lng], 12);

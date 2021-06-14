@@ -2,6 +2,9 @@
 <%= link_to "New Location", new_location_path %>
 
 <div class="show_grid">
+  <div class="demographics">
+  
+  </div>
   <div id="map" 
       data-marker="<%= @marker.to_json %>"
       data-targomo-api-key="<%= ENV['TARGOMO_API'] %>" >
