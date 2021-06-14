@@ -8,14 +8,16 @@
 }
 
 tr{
-  height:50px;
+  height:30px;
   border-bottom:rgba(0,0,0,.05) 1px solid;
+  text-align: center;
 }
 
 th{
   height:30px;
   font-size:11pt;
   border:0px solid;
+  text-align: center;
 }
 
 #increase{
@@ -28,7 +30,7 @@ th{
 }
 
 #value_table{
-  width:100%;
+  width:80%;
 }
 
 td{    

@@ -256,12 +256,22 @@ const initIsoMap = async() => {
 
   const demElement = document.querySelector(".demographics")
   const demHtml = `
-  <div> <h4> Average Net Income </h4> ${finalData.averageIncome} </div>
-  <div> <h4> Average Disposable Income</h4> ${finalData.averageIncomeAfterHousing} </div>
-  <div> <h4> Total Population</h4> ${finalData.totalPopulation} </div>
-  <div> <h4> Population Aged [16-39]</h4> ${finalData.totalPopulationSixteenThirtyNine}  </div>
+  <div> <h5> Net Income </h5> <h3> ${finalData.averageIncome.toLocaleString("en", {
+    style: "currency",
+    currency: "GBP",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+})} </h3> </div>
+  <div> <h5> Disposable Income</h5> <h3> ${finalData.averageIncomeAfterHousing.toLocaleString("en", {
+    style: "currency",
+    currency: "GBP",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+})} </h3> </div>
+  <div> <h5> Population</h5> <h3> ${finalData.totalPopulation.toLocaleString()} </h3> </div>
+  <div> <h5> 16-39 yo </h5> <h3> ${(finalData.totalPopulationSixteenThirtyNine).toLocaleString()} </h3>  </div>
   `
-  demElement.insertAdjacentHTML('afterbegin', demHtml)
+  demElement.insertAdjacentHTML('beforeend', demHtml)
     // Create a Leaflet map with basemap, set the center of the map to the city center of Berlin.
 
     var map = L.map('map').setView([markerData.lat, markerData.lng], 12);
@@ -290,12 +300,16 @@ const initIsoMap = async() => {
     // Request polygons once immediately on page load and immediately add it to the map using the default geojson map layer.
     // Check out https://leafletjs.com/examples/geojson/ for more information on how to style the geojson in Leaflet.
     const catchmentStyle = { 
-        "color": "#88d4ab", 
-        fillColor: "#88d4ab", 
-        "fillOpacity": .5
+        "color": "#A5A5A5", 
+        fillColor: "#A5A5A5", 
+        "fillOpacity": .3
     }
   
-    const polygonStyle = { fillColor: '#ffffff', "fillOpacity": .01 }
+    const polygonStyle = { 
+      "color": "#223246",
+      fillColor: '#ffffff', 
+      "fillOpacity": .01 }
+      
     polygonsGlobal.forEach(polygon => {
       let value_2021 = propertyDataGlobal.find(x => x.Outcode == polygon.properties.name).Value_2021
       let increase_2021 = propertyDataGlobal.find(x => x.Outcode == polygon.properties.name).Increase_2021

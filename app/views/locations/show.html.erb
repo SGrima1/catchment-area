@@ -1,31 +1,34 @@
 
 <%= link_to "New Location", new_location_path %>
-
-<div class="show_grid">
-  <div class="demographics">
-  
-  </div>
-  <div id="map" 
-      data-marker="<%= @marker.to_json %>"
-      data-targomo-api-key="<%= ENV['TARGOMO_API'] %>" >
-      <div id="map_box" class="hide"></div>
-  </div>
-  <div id="sold_values">
-      <table id="value_table">
-        <thead> 
-          <tr> 
-            <th colspan="2"></th>
-            <th colspan="3" id="increase">% Value Increase</th>
-          </tr>
-            <tr class="sub_header"> 
-            <th class="outcode">Outcode</th>
-            <th>Value 2021</th>
-            <th>2019</th>
-            <th>2020</th>
-            <th>2021</th>
-          </tr>
-        </thead>
-      </table>
+<div class="slide_container">
+  <h2> <%= @location.id %>. <%= @location.name %> </h2>
+  <div class="show_grid">
+    
+    <div class="demographics">
+    <h4>Population Metrics</h4>
+    </div>
+    <div id="map" 
+        data-marker="<%= @marker.to_json %>"
+        data-targomo-api-key="<%= ENV['TARGOMO_API'] %>" >
+        <div id="map_box" class="hide"></div>
+    </div>
+    <div id="sold_values">
+        <table id="value_table">
+          <thead> 
+            <tr> 
+              <th colspan="2"></th>
+              <th colspan="3" id="increase">% Value Increase</th>
+            </tr>
+              <tr class="sub_header"> 
+              <th class="outcode">Outcode</th>
+              <th>Value 2021</th>
+              <th>2019</th>
+              <th>2020</th>
+              <th>2021</th>
+            </tr>
+          </thead>
+        </table>
+    </div>
   </div>
 </div>
 
