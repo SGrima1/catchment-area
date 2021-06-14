@@ -1,4 +1,5 @@
-// create targomo client
+import * as turf from '@turf/turf'
+
 const initIsoMap = async() => {
     const mapData = document.getElementById("map")
     const markerData = JSON.parse(mapData.dataset.marker)
@@ -37,8 +38,12 @@ const initIsoMap = async() => {
     const loopPoiData = async () => {
     for (const poi of pois.features ){
       let url = `https://api.postcodes.io/postcodes?lon=${poi.geometry.coordinates[0]}&lat=${poi.geometry.coordinates[1]}&limit=1`
+        try{
         const result = await fetchOutcodeData(url)
         outcodes.push(result)
+        }catch(err){
+          // alert(`${err}`)
+        }
       }
       return outcodes
     }
@@ -68,10 +73,6 @@ const initIsoMap = async() => {
     console.log(msoaGlobal)
 
 
-
-    
-    
-    
     // PropertyDATA API
   
   // retrieve Outcodes
@@ -106,48 +107,13 @@ const initIsoMap = async() => {
       const filtered = data.filter(Boolean) 
       return filtered
     }
+    
+    
     const propertyDataGlobal = await returnPropertyData();
     console.log(propertyDataGlobal);
     
-      // Extract Values into DOM tables
 
-  ``  // EXTRACT VALUE FOR HTML HEADER 
-    const header = Object.keys(propertyDataGlobal[0]);  
 
-    // CREATE DYNAMIC TABLE.
-    const table = document.getElementById("value_table");
-
-    // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-    // let tr = table.insertRow(-1);                   // TABLE ROW.
-    // for (let i = 0; i < header.length; i++) {
-    //     const th = document.createElement("th");      // TABLE HEADER.
-    //     th.innerHTML = header[i].replace('_', ' ');
-    //     if ( i == 0) { th.classList.add('outcode');}
-    //     tr.appendChild(th);
-    // }
-
-    // ADD JSON DATA TO THE TABLE AS ROWS.
-    for (let i = 0; i < propertyDataGlobal.length; i++) {
-
-        let tr = table.insertRow(-1);
-
-        for (let j = 0; j < header.length; j++) {
-            let tabCell = tr.insertCell(-1);
-            if (j == 1){
-              tabCell.innerHTML = propertyDataGlobal[i][header[j]]
-              tabCell.classList.add('value');  
-            } else {
-              tabCell.innerHTML = propertyDataGlobal[i][header[j]] 
-            };
-            if ( j == 0) { tabCell.classList.add('outcode');}
-        }
-    }
-
-    // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-    // const divContainer = document.getElementById("sold_values");
-    // divContainer.innerHTML = "";
-    // divContainer.appendChild(table);
-    
     // Fetch OUTCODE POLYGONS
     const fetchPolygonData = async (url, outcode) => {
         const response = await fetch(url)
@@ -156,6 +122,7 @@ const initIsoMap = async() => {
     }
     // loop through polygons.geojson and push them into array
     const polygons = []
+    
     const loopPolygonData = async () => {
     for (const outcode of outcodesGlobal ){
       let url = `/PostcodeDistricts.geojson`
@@ -164,22 +131,77 @@ const initIsoMap = async() => {
      }
       return polygons
     }
+
     // return array and manipulate it - return manipulation
     const returnPolygon = async () => {
       const polygonsDup = await loopPolygonData();
       const filtered = polygonsDup.filter(Boolean) 
-      return filtered
+      const uniqPolygon = [...new Set(filtered)];
+      return uniqPolygon
     }  
     const polygonsGlobal = await returnPolygon()
+
+    const distanceFrom = [] 
+    const returnCentroidData = async () => {
+      const polygonLocalData = await returnPolygon();
+      for(let polygon of polygonLocalData ){
+        let centroid = L.geoJSON(polygon).getBounds().getCenter();
+        let from = turf.point(lnglat);
+        let to =  turf.point([centroid.lng, centroid.lat]);
+        let distance = turf.distance(from, to);
+        let result = {
+          outcode: polygon.properties.name,
+          distance: distance
+        }
+        distanceFrom.push(result)
+      }
+      const uniqDistance = [...new Set(distanceFrom)];
+      return uniqDistance
+    }
+
+    const distanceArray = await returnCentroidData()
+    console.log(distanceArray)
+
+    const shorterRef = (ref) => ref.substr(0, 9);
+
+    propertyDataGlobal.forEach(obj => {
+      const a1Ref = shorterRef(obj.Outcode);
+      const arr2Obj = distanceArray.find(tmp => shorterRef(tmp.outcode) === a1Ref);
+      if (arr2Obj) obj.distance = arr2Obj.distance;
+    });
+  
+  propertyDataGlobal.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+  console.log(propertyDataGlobal)
+  // Extract Values into DOM tables
+
+  // EXTRACT VALUE FOR HTML HEADER 
+  const header = Object.keys(propertyDataGlobal[0]);  
+
+  // CREATE DYNAMIC TABLE.
+  const table = document.getElementById("value_table");
+
+  // ADD JSON DATA TO THE TABLE AS ROWS.
+  for (let i = 0; i < Math.min(15,propertyDataGlobal.length) ; i++) {
+    let tr = table.insertRow(-1);
+    for (let j = 0; j < header.length - 1 ; j++) {
+        let tabCell = tr.insertCell(-1);
+        if (j == 1){
+          tabCell.innerHTML = propertyDataGlobal[i][header[j]]
+          tabCell.classList.add('value');  
+        } else {
+          tabCell.innerHTML = propertyDataGlobal[i][header[j]] 
+        };
+        if ( j == 0) { tabCell.classList.add('outcode');}
+    }
+  }
 
     // Fetch MSOA Data
     const fetchMsoaData = async (url, msoa) => {
       const response = await fetch(url)
       const resultObject = await response.json()
-      console.log(resultObject)
       return resultObject.find(x => x.msoa == msoa )
   }
-  // loop through polygons.geojson and push them into array
+  // loop through msoa_income.json and push them into array
   const msoas = []
   const loopMsoaData = async () => {
   for (const msoa of msoaGlobal ){
@@ -197,14 +219,11 @@ const initIsoMap = async() => {
   } 
 
   // Calculate Average salaries and total populations
-  
-  
   const netIncome = []
   const netIncomeAfterHousing = []
   const totalPopulation = []
   const totalPopulationSixteenSixtyFive = []
   const totalPopulationSixteenThirtyNine = []
-  const demographicResults = []
   
   const sumArrayValues = (values) => {
     return values.reduce((p, c) => p + c, 0)
@@ -234,9 +253,6 @@ const initIsoMap = async() => {
 
   const finalData = await returnDemographicData()
   console.log(finalData)
-
-
-  
 
     // Create a Leaflet map with basemap, set the center of the map to the city center of Berlin.
 
