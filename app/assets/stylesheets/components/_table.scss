@@ -43,3 +43,23 @@ td{
   text-align: left;
   padding-left: 10px;
 }
+
+.adjacent:nth-of-type(5n){
+  border-right: 3px dotted;
+  border-color:  #B38E37;
+} 
+
+.adjacent:nth-of-type(5n+1){
+  border-left: 3px dotted;
+  border-color:  #B38E37;
+} 
+
+.first-row{
+  border-top: 3px dotted ;
+  border-color:  #B38E37;
+} 
+
+.last-row{
+  border-bottom: 3px dotted;
+  border-color:  #B38E37;
+} 

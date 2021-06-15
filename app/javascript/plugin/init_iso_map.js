@@ -1,4 +1,5 @@
 import * as turf from '@turf/turf'
+import * as topojson from "topojson-client";
 
 const initIsoMap = async() => {
     const mapData = document.getElementById("map")
@@ -8,7 +9,7 @@ const initIsoMap = async() => {
     // GET OUTCODES THROUGH RANDOM POIs COORDINATES WITHIN CATCHMENT AREA
     const lnglat = [markerData.lng,markerData.lat];
     const optionsPOI = {
-      maxEdgeWeight: 30,
+      maxEdgeWeight: 500,
       travelType: "car",
       edgeWeight: "time",
       format: "geojson",
@@ -140,6 +141,10 @@ const initIsoMap = async() => {
       return uniqPolygon
     }  
     const polygonsGlobal = await returnPolygon()
+    console.log(polygonsGlobal)
+    
+    // Sort 
+    // Loop through Polygons to return array of adjacent outcodes
 
     const distanceFrom = [] 
     const returnCentroidData = async () => {
@@ -158,7 +163,6 @@ const initIsoMap = async() => {
       const uniqDistance = [...new Set(distanceFrom)];
       return uniqDistance
     }
-
     const distanceArray = await returnCentroidData()
     console.log(distanceArray)
 
@@ -166,12 +170,50 @@ const initIsoMap = async() => {
 
     propertyDataGlobal.forEach(obj => {
       const a1Ref = shorterRef(obj.Outcode);
-      const arr2Obj = distanceArray.find(tmp => shorterRef(tmp.outcode) === a1Ref);
-      if (arr2Obj) obj.distance = arr2Obj.distance;
+      const arrDistance = distanceArray.find(tmp => shorterRef(tmp.outcode) === a1Ref);
+      if (arrDistance) obj.distance = arrDistance.distance;
     });
   
-  propertyDataGlobal.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
-  console.log(propertyDataGlobal)
+    propertyDataGlobal.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+    console.log(propertyDataGlobal)
+
+    // Find Adjacent Outcodes
+    // Loop through Polygons to return array of adjacent outcodes
+    const adjacentOutcodes = []
+    const returnAdjacent = async () => {
+      const polygonLocalData = await returnPolygon();
+      const originOutcode = propertyDataGlobal[0].Outcode
+      const originPolygon = polygonLocalData.find(x => x.properties.name == originOutcode )
+      const origin = turf.polygon(originPolygon.geometry.coordinates)
+      console.log(originOutcode)
+      console.log(originPolygon.properties.name)
+      for(let polygon of polygonLocalData ){
+        let target = turf.polygon(polygon.geometry.coordinates);
+        if (turf.booleanIntersects(origin, target)){
+          adjacentOutcodes.push(polygon.properties.name)
+        }
+        }
+        const uniqAdjacent = [...new Set(adjacentOutcodes)];
+        return uniqAdjacent
+        
+      }
+    
+     const adjacentGlobal = await returnAdjacent()
+     console.log(adjacentGlobal)
+  
+  // add Adjacent values to propertyDataGlobal
+  propertyDataGlobal.forEach(obj => {
+    const a1Ref = shorterRef(obj.Outcode);
+    const arrAdjacent = adjacentGlobal.find(tmp => tmp === a1Ref);
+    console.log(arrAdjacent == a1Ref)
+    if (arrAdjacent == a1Ref ) {
+      obj.adjacent = true
+    }else {
+      obj.adjacent = false
+    } ;
+  });
+  
+
   // Extract Values into DOM tables
 
   // EXTRACT VALUE FOR HTML HEADER 
@@ -183,8 +225,11 @@ const initIsoMap = async() => {
   // ADD JSON DATA TO THE TABLE AS ROWS.
   for (let i = 0; i < Math.min(15,propertyDataGlobal.length) ; i++) {
     let tr = table.insertRow(-1);
-    for (let j = 0; j < header.length - 1 ; j++) {
+    for (let j = 0; j < header.length - 2 ; j++) {
         let tabCell = tr.insertCell(-1);
+        if (propertyDataGlobal[i].adjacent) tabCell.classList.add('adjacent');
+        if (i == 0) tabCell.classList.add('first-row');
+        if (i == adjacentGlobal.length -1 ) tabCell.classList.add('last-row');
         if (j == 1){
           tabCell.innerHTML = propertyDataGlobal[i][header[j]]
           tabCell.classList.add('value');  
