@@ -1,5 +1,4 @@
 import * as turf from '@turf/turf'
-import * as topojson from "topojson-client";
 
 const initIsoMap = async() => {
     const mapData = document.getElementById("map")
@@ -9,7 +8,7 @@ const initIsoMap = async() => {
     // GET OUTCODES THROUGH RANDOM POIs COORDINATES WITHIN CATCHMENT AREA
     const lnglat = [markerData.lng,markerData.lat];
     const optionsPOI = {
-      maxEdgeWeight: 500,
+      maxEdgeWeight: 30,
       travelType: "car",
       edgeWeight: "time",
       format: "geojson",
@@ -213,6 +212,24 @@ const initIsoMap = async() => {
     } ;
   });
   
+  // Extract Average growth 2021 for adjacent
+  const adjacentGrowth = []
+  let adjacentAverage = 0
+  for (let i = 0; i < propertyDataGlobal.length ; i++) {
+    if (propertyDataGlobal[i].adjacent){
+      let percentage = parseFloat(propertyDataGlobal[i].Increase_2021) / 100.0;
+      adjacentGrowth.push(percentage);
+      adjacentAverage += percentage;
+    }
+  }
+  let avg = adjacentAverage / adjacentGrowth.length 
+  
+  const avgElement = document.querySelector(".average_growth")
+  const avgHtml = `
+  <div class = "avgtext"> Neighbouring districts: +${(avg * 100).toFixed(1)}% yoy growth
+  </div> 
+  `
+  avgElement.insertAdjacentHTML('beforeend', avgHtml)
 
   // Extract Values into DOM tables
 

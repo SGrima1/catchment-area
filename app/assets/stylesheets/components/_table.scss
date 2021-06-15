@@ -5,6 +5,11 @@
   grid-area: table;
   align-self: start;
   justify-self: center;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-gap: 32px;
+  justify-items: center;
+  align-items: center;
 }
 
 tr{
@@ -62,4 +67,13 @@ td{
 .last-row{
   border-bottom: 3px dotted;
   border-color:  #B38E37;
-} 
+}
+
+.avgtext{
+  color: #B38E37;
+}
+
+.average_growth{
+  align-self: start;
+  margin-top: 72px;
+}
