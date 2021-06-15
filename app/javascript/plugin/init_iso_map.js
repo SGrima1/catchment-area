@@ -273,10 +273,14 @@ const initIsoMap = async() => {
   `
   demElement.insertAdjacentHTML('beforeend', demHtml)
     // Create a Leaflet map with basemap, set the center of the map to the city center of Berlin.
+    const fontAwesomeIcon = L.divIcon({
+      html: '<i class="fas fa-star"></i>',
+      iconSize: [20, 20],
+      className: 'myDivIcon'
+    });
 
     var map = L.map('map').setView([markerData.lat, markerData.lng], 12);
     var gl = L.mapboxGL({
-        attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e, Contains OS data \u00a9 Crown copyright and database right 2019",
         style: 'https://api.maptiler.com/maps/25b2c60e-dd4b-48c6-aa6a-feccb96014ca/style.json?key=IW4YyZ0SNyKtwkmSWnlc'
       }).addTo(map);
 
@@ -285,7 +289,7 @@ const initIsoMap = async() => {
 
     // Add markers for the sources on the map.
     sources.forEach(source => {
-        L.marker([source.lat, source.lng]).addTo(map)
+        L.marker([source.lat, source.lng], {icon: fontAwesomeIcon}).addTo(map)
     });
 
     // Set the traveloptions and options for the polygon service here. The `serializer` property tells the Targomo services to return geojson.
@@ -306,10 +310,10 @@ const initIsoMap = async() => {
     }
   
     const polygonStyle = { 
-      "color": "#223246",
+      "color": "#1574C7",
       fillColor: '#ffffff', 
       "fillOpacity": .01 }
-      
+    
     polygonsGlobal.forEach(polygon => {
       let value_2021 = propertyDataGlobal.find(x => x.Outcode == polygon.properties.name).Value_2021
       let increase_2021 = propertyDataGlobal.find(x => x.Outcode == polygon.properties.name).Increase_2021
@@ -324,10 +328,11 @@ const initIsoMap = async() => {
       L.geoJson(polygon, {
           style: polygonStyle
       }).bindTooltip(polygon.properties.name, {
+        className: 'tooltipClass',
         permanent: true, 
         direction: 'center',
         interactive: true // If true, the tooltip will follow the mouse instead of being fixed at the feature center.
-      })
+      })      
       .on('click', function(event) {
         element.innerHTML = htmlValue
         element.classList.toggle("hide")

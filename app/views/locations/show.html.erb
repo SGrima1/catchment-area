@@ -1,7 +1,7 @@
 
 <%= link_to "New Location", new_location_path %>
 <div class="slide_container">
-  <h2> <%= @location.id %>. <%= @location.name %> </h2>
+  <h2> <%= @location.id %>. <%= @location.name %> - Last 15min Drive Analytics</h2>
   <div class="show_grid">
     
     <div class="demographics">
@@ -10,8 +10,13 @@
     <div id="map" 
         data-marker="<%= @marker.to_json %>"
         data-targomo-api-key="<%= ENV['TARGOMO_API'] %>" >
-        <div id="map_box" class="hide"></div>
+        <div class="legend">
+          <div><i id="legend-square" class="fas fa-square"></i></span>15 min Drive Catchment</div>
+          <div><i id="legend-star" class="fas fa-star"></i></span> <%= @location.name %></div>
+        </div>
+         <div id="map_box" class="hide"></div>
     </div>
+    
     <div id="sold_values">
         <table id="value_table">
           <thead> 

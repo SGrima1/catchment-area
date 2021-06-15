@@ -8,6 +8,49 @@
   width: 100%;
   height: calc(100% - 15px);
   position: relative;
+  .myDivIcon{}
+  .leaflet-marker-pane{
+    z-index:999
+  }
+}
+
+.fa-star{
+  font-size: 24px;
+  color: #B38E37;
+}
+
+#legend-star{
+  font-size: 16px;
+  margin: 4px 8px;
+}
+
+.tooltipClass{
+  background-color: #1574C7 !important;
+  color: #ffffff !important;
+  border: 2px solid !important;
+  border-color: #1574C7 !important;
+  font-weight: bold;
+}
+
+#legend-square{
+  font-size: 16px;
+  margin: 4px 8px;
+  color: #A5A5A5;
+  opacity: 0.3;
+}
+.legend {
+  position: relative; padding: 8px;
+  z-index: 999;
+  bottom: -448px; left: 10px;
+  font-family: Helvetica, Arial, Sans-Serif;
+  background: white; border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  width: 30%;
+}
+.legend > div { display: flex; align-items: center; }
+
+.leaflet-touch .leaflet-bar{
+  display: none;
 }
 
 #map_box {

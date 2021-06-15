@@ -15,33 +15,36 @@
 
 .show_grid{
   display: grid;
-  padding: 16px 64px;
+  padding: 0px 56px;
   width: 100%;
   height: 75%;
   grid-template-areas: "dem dem"
                        "map  table";
   grid-template-columns: 50% 50%;
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 10% 80%;
   justify-items: center;
   align-items: start;
-  grid-gap: 20px;
-  justify-self: start;
+  grid-gap: 32px;
+  margin-left: -16px;
 }
 
 
 .demographics{
   grid-area: dem;
-  width: 95%;
+  width: 100%;
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
   border-bottom: 1px solid;
+  padding: 8px 0px;
+  background-color: #d3d3d354;
 }
 
 .demographics > h4{
   width: 90%;
   align-self: center;
   text-align: start;
+  padding-left: 16px;
 }
 
 

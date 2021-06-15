@@ -2,10 +2,14 @@
 html, body {
   width: 100%; height: 100%; margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #fffffff;
+  background-color: rbg(255, 255,255);
 
 }
 
-h1, h2, h3, h4 {
-  color: #223246;
+h3, h4, h5 {
+  color: #0F4A7E;
+}
+
+h1, h2, h3, h4, h5{
+  font-family: 'Roboto', sans-serif;
 }
