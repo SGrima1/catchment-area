@@ -7,17 +7,21 @@
     <div class="demographics">
     <h4>Population Metrics</h4>
     </div>
-    <div id="map" 
-        data-marker="<%= @marker.to_json %>"
-        data-targomo-api-key="<%= ENV['TARGOMO_API'] %>" >
-        <div class="legend">
-          <div><i id="legend-square" class="fas fa-square"></i></span>15 min Drive Catchment</div>
-          <div><i id="legend-star" class="fas fa-star"></i></span> <%= @location.name %></div>
-        </div>
-         <div id="map_box" class="hide"></div>
+    <div class="map_container">
+      <h4> Outcodes reached within a 15min drive </h4>
+      <div id="map" 
+          data-marker="<%= @marker.to_json %>"
+          data-targomo-api-key="<%= ENV['TARGOMO_API'] %>" >
+          <div class="legend">
+            <div><i id="legend-square" class="fas fa-square"></i></span>15 min Drive Catchment</div>
+            <div><i id="legend-star" class="fas fa-star"></i></span> <%= @location.name %></div>
+          </div>
+          <div id="map_box" class="hide"></div>
+      </div>
     </div>
     
     <div id="sold_values">
+        <h4> Current Trends in the local Residential Market </h4>
         <table id="value_table">
           <thead> 
             <tr> 

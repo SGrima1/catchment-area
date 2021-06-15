@@ -2,6 +2,10 @@
   width: 40%;
   height: calc(100% - 15px);
 }
+.map_container{
+  height: 100%;
+  width: 100%;
+}
 
 #map {
   grid-area: map;
@@ -41,7 +45,7 @@
 .legend {
   position: relative; padding: 8px;
   z-index: 999;
-  bottom: -448px; left: 10px;
+  bottom: -430px; left: 10px;
   font-family: Helvetica, Arial, Sans-Serif;
   background: white; border-radius: 4px;
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);

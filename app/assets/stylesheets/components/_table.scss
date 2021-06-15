@@ -6,10 +6,18 @@
   align-self: start;
   justify-self: center;
   display: grid;
+  grid-template-areas: "table_title table_title"
+                       "table_output average";
   grid-template-columns: 80% 20%;
-  grid-gap: 32px;
+  grid-gap: 0px 32px;
   justify-items: center;
   align-items: center;
+}
+
+#sold_values > h4{
+  grid-area: table_title ;
+  align-self: start;
+  justify-self: start;
 }
 
 tr{
@@ -19,7 +27,7 @@ tr{
 }
 
 th{
-  height:30px;
+  height:26px;
   font-size:11pt;
   border:0px solid;
   text-align: center;
@@ -35,6 +43,7 @@ th{
 }
 
 #value_table{
+  grid-area: table_output ;
   width:80%;
 }
 
@@ -74,6 +83,7 @@ td{
 }
 
 .average_growth{
+  grid-area: average ;
   align-self: start;
   margin-top: 72px;
 }
