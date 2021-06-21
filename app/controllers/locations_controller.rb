@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :set_location, only: [:update, :show]
+  before_action :set_location, only: [:update, :show, :edit]
   
   def index
     @locations = Location.all
@@ -30,6 +30,14 @@ class LocationsController < ApplicationController
   end
 
   def update
+    @location.update(strong_params)
+    redirect_to location_path(@location.id)
+  end
+
+  def destroy
+    @location = Location.find(params[:id])
+    @location.destroy
+    redirect_to locations_path
   end
 
   private

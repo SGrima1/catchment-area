@@ -1,0 +1,13 @@
+<table>
+<% @locations.each do |location| %>
+    <tr> 
+      <td class="location_name"> <%= link_to location.name, location_path(location.id) %> </td>
+      <td> <%= location.city %> </td>
+      <td> <%= location.address %> </td>
+      <td> <%= location.size %> </td>
+      <td> <%= location.vacant_units %> </td>
+      <td> <%= link_to "CR_link", location.url %> </td>
+    </tr>
+<% end %>
+</table>
+

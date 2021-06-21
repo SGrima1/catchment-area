@@ -15,6 +15,9 @@ const initIsoMap = async() => {
       osmTypes: [{
       key: "group",
       value: "cafe"
+      },{
+        key: "group",
+        value: "restaurant"
       }]
     };
   
