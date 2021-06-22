@@ -28,10 +28,12 @@ import "bootstrap";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 // import { initTargomo } from '../plugin/init_targomo'
-import { initAutocomplete } from '../plugin/init_autocomplete'
+// import { initAutocomplete } from '../plugin/init_autocomplete'
 import { initStats } from '../plugin/init_stats'
-import { initPropData } from '../plugin/init_prop_data'
+// import { initPropData } from '../plugin/init_prop_data'
 import { initIsoMap } from '../plugin/init_iso_map'
+import { initIndexStats } from '../plugin/init_index_stats'
+import { initOrder } from '../plugin/init_order'
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
@@ -41,4 +43,6 @@ document.addEventListener('turbolinks:load', () => {
   // initAutocomplete();
   initStats();
   initIsoMap();
+  initIndexStats();
+  initOrder();
 });

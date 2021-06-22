@@ -1,13 +1,28 @@
 <table>
-<% @locations.each do |location| %>
-    <tr> 
-      <td class="location_name"> <%= link_to location.name, location_path(location.id) %> </td>
-      <td> <%= location.city %> </td>
-      <td> <%= location.address %> </td>
-      <td> <%= location.size %> </td>
-      <td> <%= location.vacant_units %> </td>
-      <td> <%= link_to "CR_link", location.url %> </td>
+  <thead> 
+    <tr class="header"> 
+      <th > </th>
+      <th>Name</th>
+      <th>City</th>
+      <th>Address</th>
+      <th>Size</th>
+      <th>Vacant Units</th>
+      <th>More Info</th>
+      <th>Catchment 15min</th>
     </tr>
-<% end %>
+  </thead>
+  <tbody>
+    <% @locations.each do |location| %>
+        <tr class="location_row" data-targomo-api-key="<%= ENV['TARGOMO_API'] %>" data-marker="<%= {lat: location.latitude, lng: location.longitude}.to_json  %>"> 
+          <td> <%= link_to "Delete", location_path(location.id), method: :delete, data: {confirm: "Are you sure?"} %> </td>
+          <td> <%= link_to location.name, location_path(location.id) %> </td>
+          <td> <%= location.city %> </td>
+          <td> <%= location.address %> </td>
+          <td> <%= location.size %> </td>
+          <td> <%= location.vacant_units %> </td>
+          <td> <%= link_to "CR_link", location.url %> </td>
+        </tr>
+    <% end %>
+  </tbody>
 </table>
 

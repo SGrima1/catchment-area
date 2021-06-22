@@ -4,11 +4,12 @@ Stopshop,"Clapham Junction Station, London | SW11 1RU",Greater London,"51,890",0
 Hersham Green Shopping Centre,Hersham | KT12 4HL,Greater London,"54,450",0,https://completelyretail.co.uk/scheme/Hersham-Green-Shopping-Centre-Hersham,22.03
 The Mall,Bromley | BR1 1TS,Greater London,"69,200",1,https://completelyretail.co.uk/scheme/The-Mall-Bromley,16.73
 20-32 Church Street,Walton-on-Thames | KT12 2QS,Greater London,"30,883",1,https://completelyretail.co.uk/scheme/20-32-Church-Street-Walton-on-Thames,21.56
-"Crescent Arcade, Cutty Sark","Greenwich, Greenwich | SE10 9RB",Greater London,"51,247",0,https://completelyretail.co.uk/scheme/Crescent-Arcade-Cutty-Sark,10.99
+"Crescent Arcade, Cutty Sark",SE10 9RB,Greater London,"51,247",0,https://completelyretail.co.uk/scheme/Crescent-Arcade-Cutty-Sark,10.99
 Lewisham Gateway,"Station Road, Lewisham | SE13 7BG",Greater London,"80,000",,https://completelyretail.co.uk/scheme/Lewisham-Gateway-Lewisham,11.41
-Filmworks Development,Ealing | null,Greater London,"50,000",,https://completelyretail.co.uk/scheme/Filmworks-Development-Ealing,9.77
+Filmworks Development,"56-61 New Broadway, London W5 5AH",Greater London,"50,000",,https://completelyretail.co.uk/scheme/Filmworks-Development-Ealing,9.77
 The Arcadia Centre,"1 - 8 The Broadway, Ealing | W5 2ND",Greater London,"95,900",,https://completelyretail.co.uk/scheme/The-Arcadia-Centre-London,9.64
 Tally Ho,"Ballards Lane, London | N12 0GA",Greater London,"52,000",,https://completelyretail.co.uk/scheme/Tally-Ho-London,12.58
+Kingsland Shopping Centre,"Dalston, E8 2LX",Greater London,"120,000",,https://completelyretail.co.uk/scheme/Kingsland-Shopping-Centre-London,12.58
 Hatters Way Shopping Park,"Chaul End Lane, Luton | LU4 8EZ",Luton,"82,500",0,https://completelyretail.co.uk/scheme/Hatters-Way-Shopping-Park-Luton,2.76
 Dunstable Road Retail Park,"Chaul End Lane, Luton | LU4 8EZ",Luton,"47,000",0,https://completelyretail.co.uk/scheme/Dunstable-Road-Luton,2.82
 Corn Exchange,"Exchange Square, Manchester | M4 3TR",Manchester,"95,710",5,https://completelyretail.co.uk/scheme/Corn-Exchange-Manchester,0.71
@@ -31,7 +32,7 @@ Chester Road,"Chester Road, Manchester | M32 0WZ",Manchester,"30,025",0,https://
 Longfield Shopping Centre,"Rectory Lane, Prestwich | M25 1AY",Manchester,"26,500",,https://completelyretail.co.uk/scheme/Longfield-Shopping-Centre-Prestwich,6.41
 Blackley District Centre,"Blackley, Manchester | M9 4DH",Manchester,"45,000",,https://completelyretail.co.uk/scheme/Blackley-District-Centre-Manchester,4.41
 Poplar Street Retail Park,Manchester | M35 0HY,Manchester,"65,400",,https://completelyretail.co.uk/scheme/Poplar-Street-Retail-Park-Manchester,5.9
-Urmston Shopping Centre,Manchester | M41 0TT,Manchester,"86,700",,https://completelyretail.co.uk/scheme/Urmston-Shopping-Centre-Manchester,7.83
+Urmston Shopping Centre,"34 Golden Way, Urmston, Manchester M41 0NA",Manchester,"86,700",,https://completelyretail.co.uk/scheme/Urmston-Shopping-Centre-Manchester,7.83
 The Square,Manchester | M21 9AQ,Manchester,"29,100",,https://completelyretail.co.uk/scheme/The-Square-Manchester,4.53
 Devonshire Road,"Devonshire Road, Leicester | LE4 0BG",Leicester,"99,300",0,https://completelyretail.co.uk/scheme/Devonshire-Road-Leicester,1.86
 Freemans Park,Leicester | LE2 7LH,Leicester,"87,485",,https://completelyretail.co.uk/scheme/Freemans-Park-Leicester,1.42
@@ -41,10 +42,10 @@ Abbey Retail Park,"St Margarets Way, Leicester | LE4 0BT",Leicester,"57,200",,ht
 Narborough Road North Retail Park,"Narborough Road North Retail Park, Leicester | LE3 5NF",Leicester,"60,000",,https://completelyretail.co.uk/scheme/Narborough-Road-North-Retail-Park-Leicester,0.88
 Barkby Thorpe Retail Park,"Thurmaston, Leicester | LE4 8GP",Leicester,"85,300",,https://completelyretail.co.uk/scheme/Barkby-Thorpe-Retail-Park-Leicester,6.42
 Homebase - Putney Road Retail Park,Leicester | LE2 7TF,Leicester,"46,100",,https://completelyretail.co.uk/scheme/Homebase-Putney-Road-Retail-Park-Leicester,1.93
-Hedge End Retail Park,"Charles Watts Way, Southampton | SO30 4RT",Hampshire,"86,000",1,https://completelyretail.co.uk/scheme/Hedge-End-Retail-Park-Southampton,15.09
+Hedge End Retail Park,Southampton | SO30 4RT,Hampshire,"86,000",1,https://completelyretail.co.uk/scheme/Hedge-End-Retail-Park-Southampton,15.09
 Waterside Retail Park,"Portfield Way, Chichester | PO19 7ZL",Hampshire,"30,000",0,https://completelyretail.co.uk/scheme/Waterside-Retail-Park-Chichester,40.76
 East Street Shopping Centre,"Capital House, Southampton | SO14 3HX",Hampshire,"58,000",,https://completelyretail.co.uk/scheme/East-Street-Shopping-Centre-Southampton,19.26
-Hedge End Park Phase 3,"Tollbar Way, Southampton | SO30 2UH",Hampshire,"86,790",0,https://completelyretail.co.uk/scheme/Hedge-End-Park-Southampton,14.43
+Hedge End Park Phase 3,Southampton | SO30 2UH,Hampshire,"86,790",0,https://completelyretail.co.uk/scheme/Hedge-End-Park-Southampton,14.43
 Mountbatten Retail Park,"Western Esplanade, Southampton | SO15 1QJ",Hampshire,"52,159",0,https://completelyretail.co.uk/scheme/Mountbatten-Retail-Park-Southampton,19.49
 Northarbour Retail Park,Portsmouth | PO6 4SR,Hampshire,"65,000",0,https://completelyretail.co.uk/scheme/Northarbour-Retail-Park-Portsmouth,24.46
 Central Retail Park,"Park Way, Havant | PO9 1HH",Hampshire,"85,700",2,https://completelyretail.co.uk/scheme/Central-Retail-Park-Havant,27.83
@@ -52,7 +53,7 @@ Central Retail Park,"Park Way, Havant | PO9 1HH",Hampshire,"85,700",2,https://co
 Tollbar Way,"Unit 27, Southampton | SO30 2QY",Hampshire,"45,000",0,https://completelyretail.co.uk/scheme/Tollbar-Way-Southampton,14.05
 Victory Retail Park,Portsmouth | PO1 4QP,Hampshire,"53,200",1,https://completelyretail.co.uk/scheme/Victory-Retail-Park-Portsmouth,28.68
 Burrfields Retail Park,"Burrfields Road, Portsmouth | PO3 5LZ",Hampshire,"25,083",0,https://completelyretail.co.uk/scheme/Burrfields-Retail-Park-Portsmouth,28.71
-Wickes � Hedge End,Southampton | SO30 2QY,Hampshire,"45,021",0,https://completelyretail.co.uk/scheme/Wickes-Hedge-End-Southampton,14.05
+Wickes Hedge End,Southampton | SO30 2QY,Hampshire,"45,021",0,https://completelyretail.co.uk/scheme/Wickes-Hedge-End-Southampton,14.05
 Shirley Retail Park,"Winchester Road, Southampton | SO16 6TP",Hampshire,"30,246",0,https://completelyretail.co.uk/scheme/Shirley-Retail-Park-Southampton,18.05
 Anchorage Park Shopping Centre,Portsmouth | PO3 5UH,Hampshire,"42,451",1,https://completelyretail.co.uk/scheme/Anchorage-Park-Shopping-Centre-Portsmouth,27.97
 Barnfield Retail Park,"Barnfield Drive, Chichester | PO19 6UX",Hampshire,"55,500",0,https://completelyretail.co.uk/scheme/Barnfield-Retail-Park-Chicester,40.64
@@ -61,13 +62,13 @@ Havant Retail Park,"Portsdown Hill Road, Havant | PO9 3NA",Hampshire,"66,000",,h
 Dukes Walk Shopping Centre,Waterlooville | PO7 7HS,Hampshire,"89,500",,https://completelyretail.co.uk/scheme/Dukes-Walk-Shopping-Centre-Waterlooville,23.72
 Hegde End Park,"Tollbar Way, Southampton | SO30 2UH",Hampshire,"85,000",,https://completelyretail.co.uk/scheme/Hegde-End-Park-Southampton,14.25
 Caxtongate,Birmingham | B2 4LP,Birminhgham,"81,926",1,https://completelyretail.co.uk/scheme/Caxtongate-Brimingham,0.33
-Sheldon Retail Park,"Coventry Road, Sheldon | B26 3NX",Birminhgham,"30,000",3,https://completelyretail.co.uk/scheme/Sheldon-Retail-Park-Sheldon,8.94
+Sheldon Retail Park,Sheldon | B26 3NX,Birminhgham,"30,000",3,https://completelyretail.co.uk/scheme/Sheldon-Retail-Park-Sheldon,8.94
 Trident Retail Park,"Watery Lane, Birmingham | B9 4EH",Birminhgham,"32,100",0,https://completelyretail.co.uk/scheme/Trident-Retail-Park-Birmingham,1.78
 Acocks Green,Birmingham | B27 6RH,Birminhgham,"26,700",3,https://completelyretail.co.uk/scheme/Acocks-Green-Birmingham,6.74
-Apex Retail Park,"Apex Retail Park, Birmingham | B12 0EB",Birminhgham,"40,000",1,https://completelyretail.co.uk/scheme/Apex-Retail-Park-Birmingham,2.07
+Apex Retail Park,Birmingham | B12 0EB,Birminhgham,"40,000",1,https://completelyretail.co.uk/scheme/Apex-Retail-Park-Birmingham,2.07
 Caxtongate,"New Street, Birmingham | B2 5AE",Birminhgham,"66,204",1,https://completelyretail.co.uk/scheme/Caxtongate-Birmingham,0.33
 Heybarnes Retail Park,"Fordrough, Birmingham | B25 8DL",Birminhgham,"33,000",0,https://completelyretail.co.uk/scheme/Heybarnes-Retail-Park-Birmingham,4.7
-The Cube,"Wharfside Street, Birmingham | B1 1NN",Birminhgham,"70,000",,https://completelyretail.co.uk/scheme/The-Cube-Birmingham,0.57
+The Cube,Birmingham | B1 1NN,Birminhgham,"70,000",,https://completelyretail.co.uk/scheme/The-Cube-Birmingham,0.57
 The Bearwood Shopping Centre,"Smethwick, Warley | B66 4BH",Birminhgham,"49,830",0,https://completelyretail.co.uk/scheme/The-Bearwood-Shopping-Centre-Smethwick,4.5
 21-25 New Street,Birmingham | B2 4RQ,Birminhgham,"25,365",0,https://completelyretail.co.uk/scheme/21-25-New-Street,0.39
 Coventry Road - Morrisons,"Coventry Road, Birmingham | B26 3PD",Birminhgham,"30,000",,https://completelyretail.co.uk/scheme/Coventry-Road-Morrisons-Birmingham,8.92
@@ -76,7 +77,7 @@ Yew Tree Retail Park,"Stoney Lane, Birmingham | B25 8RE",Birminhgham,"30,000",,h
 Findlay Road Retail Park,Birmingham | B14 7SN,Birminhgham,"82,300",,https://completelyretail.co.uk/scheme/Findlay-Road-Retail-Park-Birmingham,4.62
 Tameside Business Park - Wickes,Birmingham | B42 2ET,Birminhgham,"52,377",,https://completelyretail.co.uk/scheme/Tameside-Business-Park-Wickes-Birmingham,4.83
 Tollgate Shopping Precinct,Smethwick | B67 7RA,Birminhgham,"63,700",0,https://completelyretail.co.uk/scheme/Tollgate-Shopping-Precinct-Smethwick,5.09
-Aldridge Road - Wickes Extra,"101 Aldridge Road, West Bromwich | B42 2ET",Birminhgham,"53,000",,https://completelyretail.co.uk/scheme/Aldridge-Road-Wickes,5.21
+Aldridge Road - Wickes Extra,West Bromwich | B42 2ET,Birminhgham,"53,000",,https://completelyretail.co.uk/scheme/Aldridge-Road-Wickes,5.21
 Dartmouth Circus - Matalan,"Dartmouth Circus, Birmingham | B6 4LD",Birminhgham,"44,700",0,https://completelyretail.co.uk/scheme/Dartmouth-Circus-Matalan-Birmingham,1.65
 Wells Green Retail Park,"Coventry Road, Birmingham | B26 3JA",Birminhgham,"26,000",,https://completelyretail.co.uk/scheme/Wells-Green-Retail-Park-Birmingham,8.53
 Northgate Retail Park,Birmingham | B6 4BA,Birminhgham,"45,200",,https://completelyretail.co.uk/scheme/Northgate-Retail-Park-Birmingham,1.89
