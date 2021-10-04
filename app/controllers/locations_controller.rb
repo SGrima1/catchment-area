@@ -44,7 +44,7 @@ class LocationsController < ApplicationController
   def destroy
     @location = Location.find(params[:id])
     @location.destroy
-    redirect_to locations_path
+    
   end
 
   private
@@ -53,7 +53,7 @@ class LocationsController < ApplicationController
   end
 
   def strong_params
-    params.require(:location).permit(:name,:address)
+    params.require(:location).permit(:name,:address, :postcode)
   end
 
 

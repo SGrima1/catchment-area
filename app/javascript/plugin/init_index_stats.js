@@ -7,7 +7,7 @@ const initIndexStats = async () => {
     const name = item.textContent;
     
     const stats = {
-      group: 52,
+      group: 51,
       individual: [
       {
       id: 0, name: "Population", label: "Total population",

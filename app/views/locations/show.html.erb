@@ -1,7 +1,10 @@
 
 <%= link_to "New Location", new_location_path %>
+<div>
+  <button id="generateScreenshot"> Save Image </button>
+</div>
 <div class="slide_container">
-  <h2> <%= @location.id %>. <%= @location.name %> - Last 15min Drive Analytics</h2>
+  <h2> <%= @location.name %> - Last 15min Drive Analytics</h2>
   <div class="show_grid">
     
     <div class="demographics">

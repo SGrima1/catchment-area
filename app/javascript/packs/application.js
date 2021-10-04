@@ -34,6 +34,7 @@ import { initStats } from '../plugin/init_stats'
 import { initIsoMap } from '../plugin/init_iso_map'
 import { initIndexStats } from '../plugin/init_index_stats'
 import { initOrder } from '../plugin/init_order'
+import { initScreenshot } from '../plugin/init_screenshot'
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
@@ -45,4 +46,5 @@ document.addEventListener('turbolinks:load', () => {
   initIsoMap();
   initIndexStats();
   initOrder();
+  initScreenshot();
 });

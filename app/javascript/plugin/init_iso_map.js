@@ -8,7 +8,7 @@ const initIsoMap = async() => {
     // GET OUTCODES THROUGH RANDOM POIs COORDINATES WITHIN CATCHMENT AREA
     const lnglat = [markerData.lng,markerData.lat];
     const optionsPOI = {
-      maxEdgeWeight: 30,
+      maxEdgeWeight: 900,
       travelType: "car",
       edgeWeight: "time",
       format: "geojson",
@@ -50,6 +50,7 @@ const initIsoMap = async() => {
       }
       return outcodes
     }
+    
     // return array and manipulate it - return manipulation
     const returnOutcode = async () => {
       const outcodesDup = await loopPoiData();
@@ -346,7 +347,9 @@ const initIsoMap = async() => {
 
     var map = L.map('map').setView([markerData.lat, markerData.lng], 12);
     var gl = L.mapboxGL({
-        style: 'https://api.maptiler.com/maps/25b2c60e-dd4b-48c6-aa6a-feccb96014ca/style.json?key=IW4YyZ0SNyKtwkmSWnlc'
+        style: 'https://api.maptiler.com/maps/25b2c60e-dd4b-48c6-aa6a-feccb96014ca/style.json?key=IW4YyZ0SNyKtwkmSWnlc',
+        preserveDrawingBuffer: true,
+        preferCanvas: true
       }).addTo(map);
 
     // Define a source location which is passed into the Targomo polygon service.

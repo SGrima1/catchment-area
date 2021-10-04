@@ -14,7 +14,7 @@ csv = CSV.parse(csv_text, headers: true, :encoding => 'ISO-8859-1')
 csv.each do |row|
   l = Location.new
   l.name = row['Name']
-  l.address = row['Address']
+  l.address = row['Location']
   l.city = row['City']
   l.size = row['Size']
   l.vacant_units = row['Vacant Units']
